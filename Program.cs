@@ -49,14 +49,29 @@ class SubTeam : Team
 public class wordplayer
 {
     /// <summary>
-    /// Serialize from Json
+    /// Serialize from Json -> "Student":"{"Name":"Austin","Level":"Senior Developer"}","Department":"Optimization"
     /// </summary>
-    /// <param name="TextJson"></param>
-    /// <returns></returns>
-    /// "Student":"{"Name":"Austin","Level":"Senior Developer"}","Department":"Optimization"
     public static void ParsejsonFile(string[] args)
     {
 
+    }
+
+    /// <summary>
+    /// HighestOccuring digit saved in 2 dmesional Array sorted by no. of occcurences
+    /// </summary>
+    public static void HighestOccuringdigitSimplified(int[] TestArr)
+    {
+        int N = TestArr.Length; int DistinctLength = TestArr.Distinct().ToArray().Length;
+        int[] DistinctArr = TestArr.Distinct().ToArray();
+        int[,] TwoDArr = new int[DistinctLength, 2];
+        //Test: a = {4,3,2,1,1,1,1,1,1,1,4}; Result: [0,0] -> [1,7], [1,0] -> [4,2], [2,0] -> [3,1], [3,0] -> [2,1].
+        TestArr = TestArr.OrderByDescending(s => s).ToArray();
+        for (int i = 0; i < DistinctLength; i++)
+        {
+                TwoDArr[i, 0] = DistinctArr[i];
+                TwoDArr[i, 1] = TestArr.ToString()!.Split(DistinctArr[i].ToString().Trim()).Length;
+        }
+        //sort second column...
     }
 
     public static int JaggedArrayGeneration(List<int> a)
@@ -76,9 +91,8 @@ public class wordplayer
         {
             for (int j = 0; j <= i; j++)
             {
-                //[0,j] -> [4,0,0,0]; [1,j] -> [4,3,0,0] etc
+                //[0,j] -> [4,0,0,0]; [1,j] -> [4,3,0,0] etc; [2,j] -> [4,3,2,0] etc
                 s[i, j] = a[j]; //s[i, j] = (i - j >= 0) ? a[i - j] : 0; -> this method creates a reverse order
-
             }
         }
 
@@ -218,8 +232,6 @@ public class wordplayer
     /// <summary>
     /// / Going further count the number of character in any unspecified string...
     /// </summary>
-    /// <param name="path"></param>
-    /// 
     public static void AlphabetRandom(string T)
     {
         char[] alpha = T.ToCharArray();
@@ -233,7 +245,6 @@ public class wordplayer
             Superarr[0, i] = alpha2[i]; //Superarray.Rank = 2
             Superarr[1, i] = alphaCounter[i];
             System.Console.WriteLine("{0} equals {1}", Superarr[0, i].ToString(), Superarr[1, i].ToString());
-
             //sortung
             //Superarr = Superarr[0,*].((a, b) => a[1] - b[1]);
         }
@@ -330,8 +341,11 @@ internal class Program
         //    Console.WriteLine(arr1[i]);
         //}
 
-        List<int> a = new List<int> { 4, 3, 2, 1 };
-        Console.WriteLine(wordplayer.JaggedArrayGeneration(a));
+        //List<int> a = new List<int> { 4, 3, 2, 1 };
+        //Console.WriteLine(wordplayer.JaggedArrayGeneration(a));
+
+        int[] Test = { 4, 3, 2, 1, 1, 1, 1, 1, 1, 1, 4 };
+        wordplayer.HighestOccuringdigitSimplified(Test);
     }
 }
 
