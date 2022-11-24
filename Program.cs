@@ -64,14 +64,33 @@ public class wordplayer
         int N = TestArr.Length; int DistinctLength = TestArr.Distinct().ToArray().Length;
         int[] DistinctArr = TestArr.Distinct().ToArray();
         int[,] TwoDArr = new int[DistinctLength, 2];
+        int[] alphaCounter = new int[DistinctLength]; string StringEquivalent = string.Join("", TestArr);
+
         //Test: a = {4,3,2,1,1,1,1,1,1,1,4}; Result: [0,0] -> [1,7], [1,0] -> [4,2], [2,0] -> [3,1], [3,0] -> [2,1].
+        Console.WriteLine("Two dimensional array before sorting..");
         TestArr = TestArr.OrderByDescending(s => s).ToArray();
         for (int i = 0; i < DistinctLength; i++)
         {
-                TwoDArr[i, 0] = DistinctArr[i];
-                TwoDArr[i, 1] = TestArr.ToString()!.Split(DistinctArr[i].ToString().Trim()).Length;
+            alphaCounter[i] = StringEquivalent.Split(DistinctArr[i].ToString()).Length - 1;
+            TwoDArr[i, 0] = DistinctArr[i];
+            TwoDArr[i, 1] = alphaCounter[i];
+            Console.WriteLine("{0} equals {1}", TwoDArr[i, 0].ToString(), TwoDArr[i, 1].ToString());
         }
+
         //sort second column...
+        Console.WriteLine("Two dimensional array after sorting..");
+        List<List<int>> TwoDlist = new();
+        TwoDlist = TwoDArr.Cast<int>()
+             .Select((x, i) => new { x, index = i / TwoDArr.GetLength(1) })
+             .GroupBy(x => x.index)
+             .Select(x => x.Select(s => s.x).ToList())
+             .ToList();
+        TwoDlist.Sort((x, y) => x[1].CompareTo(y[1]));
+
+        for (int i = 0; i < TwoDlist.Count; i++)
+        {
+            Console.WriteLine("{0} equals {1}", TwoDlist[i][0].ToString(), TwoDlist[i][1].ToString());
+        }
     }
 
     public static int JaggedArrayGeneration(List<int> a)
@@ -236,7 +255,7 @@ public class wordplayer
     {
         char[] alpha = T.ToCharArray();
         char[] alpha2 = alpha.Distinct().ToArray();
-        int[] alphaCounter = new int[alpha2.Length]; ;
+        int[] alphaCounter = new int[alpha2.Length];
         object[,] Superarr = new object[2, alpha.Length];
         var parts = Regex.Split(T, "aa", RegexOptions.IgnoreCase);
         for (int i = 0; i < alpha2.Length; i++)
