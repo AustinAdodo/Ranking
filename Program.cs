@@ -16,6 +16,43 @@ static class Extend
     }
 }
 
+
+/// <summary>
+/// Constraints for seconds, when seconds are above 30 , they should approximate to a minute
+/// </summary>
+
+class WallClock
+{
+    public static string TellTime(decimal time)
+    {
+        string result = " "; int day = 24 * 3600;
+        if (time <= 60)
+        {
+            result = (time == 60) ? time.ToString() + " Seconds" : time.ToString() + " Minute";
+
+        }
+        if (time > 60 && time < 3600)
+        {
+            result = Math.Floor(time / 60).ToString() + " Minutes" + " " + Math.Floor(time % 60).ToString() + " Seconds";
+        }
+        if (time > 3600 && time < day)
+        {
+            decimal a = (time / 3600);
+            result = Math.Floor(a).ToString() + " Hours" + " " + ((time % 3600) % 60).ToString() + " Minutes"
+             + " " + ((time % 3600) - 60).ToString() + " Seconds";
+        }
+        if (time > day && time < 7 * day)
+        {
+            decimal a = (time / 24 * 3600);
+            result = Math.Floor(a).ToString() + " Days" + " " + ((time % 24 * 3600) % 3600).ToString() + " Hours"
+            + " " + (((time % 24 * 3600) % 3600) % 60).ToString() + " Minutes"
+            + " " + ((time % 24 * 3600) - 60).ToString() + " Seconds";
+        }
+        return result;
+    }
+
+}
+
 class Team
 {
     public virtual string? Name { get; set; }
@@ -76,6 +113,7 @@ public class wordplayer
             TwoDArr[i, 1] = alphaCounter[i];
             Console.WriteLine("{0} equals {1}", TwoDArr[i, 0].ToString(), TwoDArr[i, 1].ToString());
         }
+        Console.WriteLine('\n');
 
         //sort second column...
         Console.WriteLine("Two dimensional array after sorting..");
@@ -86,7 +124,7 @@ public class wordplayer
              .Select(x => x.Select(s => s.x).ToList())
              .ToList();
         TwoDlist.Sort((x, y) => x[1].CompareTo(y[1]));
-
+        TwoDlist.Reverse();
         for (int i = 0; i < TwoDlist.Count; i++)
         {
             Console.WriteLine("{0} equals {1}", TwoDlist[i][0].ToString(), TwoDlist[i][1].ToString());
@@ -264,8 +302,6 @@ public class wordplayer
             Superarr[0, i] = alpha2[i]; //Superarray.Rank = 2
             Superarr[1, i] = alphaCounter[i];
             System.Console.WriteLine("{0} equals {1}", Superarr[0, i].ToString(), Superarr[1, i].ToString());
-            //sortung
-            //Superarr = Superarr[0,*].((a, b) => a[1] - b[1]);
         }
     }
 
