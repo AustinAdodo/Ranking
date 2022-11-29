@@ -15,13 +15,45 @@ static class Extend
         return source.GroupBy(s => transform(s)).OrderByDescending(g => g.Count()).First().Key;
     }
 }
+public class General
+{
+    /// <summary>
+    /// Serialize from Json -> "Student":"{"Name":"Austin","Level":"Senior Developer"}","Department":"Optimization"
+    /// </summary>
+    public static void ParsejsonFile(string[] args)
+    {
 
+    }
+
+    public static void DetectNetworkFailure(string[] args)
+    {
+
+    }
+
+    public static void ReadCSV(string path)
+    {
+
+        using (var reader = new StreamReader(path))
+        {
+            List<string> listA = new List<string>();
+            List<string> listB = new List<string>();
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                var values = (line != null) ? line.Split(';') : Array.Empty<string>();
+
+                listA.Add(values[0]);
+                listB.Add(values[1]);
+            }
+        }
+    }
+}
 
 /// <summary>
 /// Constraints for seconds, when seconds are above 30 , they should approximate to a minute
 /// </summary>
 
-class WallClock
+public class WallClock
 {
     public static string TellTime(decimal time)
     {
@@ -85,14 +117,6 @@ class SubTeam : Team
 
 public class wordplayer
 {
-    /// <summary>
-    /// Serialize from Json -> "Student":"{"Name":"Austin","Level":"Senior Developer"}","Department":"Optimization"
-    /// </summary>
-    public static void ParsejsonFile(string[] args)
-    {
-
-    }
-
     /// <summary>
     /// HighestOccuring digit saved in 2 dmesional Array sorted by no. of occcurences
     /// </summary>
@@ -311,24 +335,6 @@ public class wordplayer
         var b = t.ToCharArray().Select(s => s.ToString()).ToArray();
         var result = b.Except(a);
         return char.Parse(string.Join("", result));
-    }
-
-    public static void ReadCSV(string path)
-    {
-
-        using (var reader = new StreamReader(path))
-        {
-            List<string> listA = new List<string>();
-            List<string> listB = new List<string>();
-            while (!reader.EndOfStream)
-            {
-                var line = reader.ReadLine();
-                var values = (line != null) ? line.Split(';') : Array.Empty<string>();
-
-                listA.Add(values[0]);
-                listB.Add(values[1]);
-            }
-        }
     }
 
     public static int BaseballScore(string[] ops)
