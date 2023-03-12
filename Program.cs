@@ -85,35 +85,6 @@ public class WallClock
 
 }
 
-class Team
-{
-    public virtual string? Name { get; set; }
-    public virtual int TotalMambers { get; set; }
-    public Team(int totalMambers, string name)
-    {
-        TotalMambers = totalMambers;
-        Name = name;
-    }
-    public Team() { }
-    public int AddMember(int NewMmebers)
-    {
-        return NewMmebers + this.TotalMambers;
-    }
-}
-class SubTeam : Team
-{
-    public override string? Name { get; set; }
-    public override int TotalMambers { get; set; }
-    public SubTeam()
-    {
-        Name = base.Name;
-        TotalMambers = base.TotalMambers;
-    }
-    public string ChangeName(string name)
-    {
-        return this.Name = name;
-    }
-}
 
 public class wordplayer
 {
@@ -146,7 +117,7 @@ public class wordplayer
              .Select((x, i) => new { x, index = i / TwoDArr.GetLength(1) })
              .GroupBy(x => x.index)
              .Select(x => x.Select(s => s.x).ToList())
-             .ToList();
+             .ToList();//complex casting from Arr to List Occurs.
         TwoDlist.Sort((x, y) => x[1].CompareTo(y[1]));
         TwoDlist.Reverse();
         for (int i = 0; i < TwoDlist.Count; i++)
@@ -195,30 +166,7 @@ public class wordplayer
         }
         return result;
     }
-
-    //public static void CalculateSpeedDownload(Stream b, char[] buffer)
-    //{
-    //    StreamWriter fs = new StreamWriter(b);
-    //    StreamReader ns = new StreamReader(b);
-    //    while (true)
-    //    {
-    //        Stopwatch sw = new Stopwatch();
-    //        sw.Start();
-    //        int n = ns.Read(buffer, 0, buffer.Length);
-    //        sw.Stop();
-    //        var Speed = (float)n / sw.Elapsed.TotalSeconds;
-
-    //        if (n == 0)
-    //            break;
-
-    //        fs.Write(buffer, 0, n);
-
-    //        BytesRead += n; //TODO: Persist the bytesRead object somewhere, so that it can be taken back for resumes
-    //        bytesToRead -= n;
-    //        OnProgress(this, new System.EventArgs());
-    //        if (Status == DownloadStatusEnum.Paused) break;
-    //    }
-
+       
     public static int ClosestAbsolute(int[] OdiaArr)//checks the closest negative number to 0
     {
         int result1 = 0; int result2 = 0; int result = 0;
@@ -275,6 +223,7 @@ public class wordplayer
         return arr.ToArray();
     }
 
+    //Highest Occuring to be reviewed.
     public static int HighestOccuringdigit(int[] numberArr)
     {
         int maxcount = 0; int n = numberArr.Length;
@@ -311,7 +260,7 @@ public class wordplayer
     }
 
     /// <summary>
-    /// / Going further count the number of character in any unspecified string...
+    ///  Going further count the number of character in any unspecified string...
     /// </summary>
     public static void AlphabetRandom(string T)
     {
@@ -375,36 +324,6 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        //string test = "ABCDEFiooheyrjiopqrs";
-        //string[] arr = wordplayer.solution(test);
-        //Console.WriteLine(arr);
-
-        //string[] test = { "5", "2", "C", "D", "+" };
-        //Console.WriteLine(wordplayer.BaseballScore(test));
-
-        // Console.WriteLine(wordplayer.SML("LLLSSMSLM"));
-
-        // wordplayer.AlphabetRandom("xbmnnnndlmppmmmo");
-
-        //string s = "opqrs";
-        //string t = "opqrst";
-        //Console.WriteLine(wordplayer.CompareOverflow(s, t));
-
-        //int[] numArray = { 4, 5, 5, 6, 4, 4, 4, 4, 1, 3, 4, 4 };
-        //Console.WriteLine(wordplayer.HighestOccuringdigit(numArray));
-
-        //int[] arr = { -99, -97, -98 - 43, -56, -98, 93, 60, 68, -13, 84, 57, 39, 57, -49, -56, -45, -12, 3, 4, 5, 6, 3, -1, 78, 45, 2, 23 };
-        //Console.WriteLine(wordplayer.ClosestAbsolute(arr));
-
-        //int[] arr = { 1, 2, 3, 4 }; int[] arr1 = wordplayer.IthPoduct(arr);
-        //for (int i = 0; i < arr.Length; i++)
-        //{
-        //    Console.WriteLine(arr1[i]);
-        //}
-
-        //List<int> a = new List<int> { 4, 3, 2, 1 };
-        //Console.WriteLine(wordplayer.JaggedArrayGeneration(a));
-
         int[] Test = { 4, 3, 2, 1, 1, 1, 1, 1, 1, 1, 4 };
         wordplayer.HighestOccuringdigitSimplified(Test);
     }
